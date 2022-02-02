@@ -1,24 +1,22 @@
 FROM python:3.7-alpine
 
-# Creación de un directorio de trabajo en Docker
+# Work directory creation
 WORKDIR /code
 
-# Variables de entorno de Flask
-ENV FLASK_APP=app.py 
+# Env Variables
+ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
-# Ejecución
 RUN apk add --no-cache gcc musl-dev linux-headers
 
-# Instalación de dependencias
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
-# Exposición de un puerto 
-EXPOSE 5000
-
-# Copiar todo el código
+# Copy files
 COPY . .
 
-# Ejecución del código 
+# Dependencies installation
+RUN pip install -r requirements.txt
+
+# Expose a port
+EXPOSE 5000
+
+# Execute
 CMD ["flask", "run"]
